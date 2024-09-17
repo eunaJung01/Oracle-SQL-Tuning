@@ -1,7 +1,11 @@
+## Tables
+
 - 회원 : member
 - 주문 : orders
 - 상품 : item
 - 주문 상품 : ordered_item
+
+<br/>
 
 ## DDL
 
@@ -69,6 +73,59 @@ CREATE TABLE ordered_item
 );
 ```
 
+<br/>
+
 ## ERD
 
 <img width="800" alt="ERD" src="https://github.com/user-attachments/assets/6da52c22-3d0e-4864-a5d6-e9f13970f0e6">
+
+<br/>
+<br/>
+
+## PL/SQL for Dummy Data Insertion
+
+```oracle
+BEGIN
+    FOR i IN 1..100000
+        LOOP
+            INSERT INTO member (name, city, street, zipcode)
+            VALUES ('Member ' || i,
+                    'City ' || MOD(i, 100),
+                    'Street ' || MOD(i, 1000),
+                    MOD(i, 90000) + 10000);
+        END LOOP;
+    COMMIT;
+
+    FOR i IN 1..100000
+        LOOP
+            INSERT INTO orders (member_id, order_date, status)
+            VALUES (MOD(i, 100000) + 1,
+                    SYSDATE - MOD(i, 365),
+                    CASE MOD(i, 3)
+                        WHEN 0 THEN 'PENDING'
+                        WHEN 1 THEN 'SHIPPED'
+                        ELSE 'DELIVERED'
+                        END);
+        END LOOP;
+
+    FOR i IN 1..1000
+        LOOP
+            INSERT INTO item (name, price, stock_quantity)
+            VALUES ('Item ' || i,
+                    MOD(i, 90) + 10,
+                    MOD(i, 1000) + 1);
+        END LOOP;
+
+    FOR i IN 1..100000
+        LOOP
+            INSERT INTO ordered_item (order_id, item_id, price, quantity)
+            VALUES (MOD(i, 100000) + 1,
+                    MOD(i, 1000) + 1,
+                    MOD(i, 90) + 10,
+                    MOD(i, 10) + 1);
+        END LOOP;
+
+    COMMIT;
+END;
+/
+```
