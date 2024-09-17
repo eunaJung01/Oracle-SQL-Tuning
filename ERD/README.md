@@ -9,7 +9,7 @@
 
 ## DDL
 
-```oracle
+```sql
 CREATE TABLE member
 (
     member_id NUMBER
@@ -84,7 +84,7 @@ CREATE TABLE ordered_item
 
 ## PL/SQL for Dummy Data Insertion
 
-```oracle
+```SQLPL
 BEGIN
     FOR i IN 1..100000
         LOOP
