@@ -7,6 +7,13 @@
 
 <br/>
 
+## ERD
+
+<p align="center"><img width="800" alt="ERD" src="https://github.com/user-attachments/assets/6da52c22-3d0e-4864-a5d6-e9f13970f0e6">
+
+<br/>
+<br/>
+
 ## DDL
 
 ```sql
@@ -73,13 +80,6 @@ CREATE TABLE ordered_item
 );
 ```
 
-<br/>
-
-## ERD
-
-<img width="800" alt="ERD" src="https://github.com/user-attachments/assets/6da52c22-3d0e-4864-a5d6-e9f13970f0e6">
-
-<br/>
 <br/>
 
 ## PL/SQL for Dummy Data Insertion
