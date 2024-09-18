@@ -7,6 +7,8 @@ SELECT *
 FROM MEMBER;
 ```
 
+<br/>
+
 ### Execution Plan
 
 ```
@@ -22,7 +24,7 @@ Plan hash value: 3441279308
 
 `TABLE ACCESS FULL` : Table full scan 방식으로 결과 집합을 가져왔다.
 
-즉, Sequential access & Multiblock I/O가 발생하였다.
+**즉, Sequential access & Multiblock I/O가 발생하였다.**
 
 <br/>
 <br/>
@@ -50,13 +52,16 @@ Plan hash value: 3279811250
 ```
 
 `INDEX FAST FULL SCAN` → Index scan을 통해서 결과 집합을 가져오는 것으로 선택되었다.
+<br/>
 
 Oracle에서는 어떠한 table의 PK에 대해서, 자동으로 Unique index를 생성해준다.
 
-[[참고] Oracle 공식 문서](https://docs.oracle.com/en/database/oracle/oracle-database/19/admin/managing-indexes.html#GUID-BF04684D-A857-4046-8749-0F57D3B19113)  
-Oracle Database enforces a `UNIQUE` key or `PRIMARY KEY` integrity constraint on a table  
-by creating a unique index on the unique key or primary key.  
-This index is automatically created by the database when the constraint is enabled.
+> [[참고] Oracle 공식 문서](https://docs.oracle.com/en/database/oracle/oracle-database/19/admin/managing-indexes.html#GUID-BF04684D-A857-4046-8749-0F57D3B19113)
+> Oracle Database enforces a `UNIQUE` key or `PRIMARY KEY` integrity constraint on a table  
+> by creating a unique index on the unique key or primary key.  
+> This index is automatically created by the database when the constraint is enabled.
+
+<br/>
 
 따라서 MEMBER_ID(= MEMBER table’s PK)에 대한 Unique index가 존재하고
 
@@ -84,7 +89,9 @@ SELECT /*+ NO_INDEX_FFS(MEMBER MEMBER_ID_IDX) */
 FROM MEMBER;
 ```
 
-`NO_INDEX_FFS` hint는 Optimizer가 Index fast full scan 방식을 선택하지 않도록 유도한다.
+`NO_INDEX_FFS` hint는 **Optimizer가 Index fast full scan 방식을 선택하지 않도록 유도한다.**
+
+↔︎ `INDEX_FFS` hint
 
 <br/>
 
