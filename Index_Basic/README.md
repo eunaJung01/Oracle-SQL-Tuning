@@ -52,6 +52,7 @@ Plan hash value: 3279811250
 ```
 
 `INDEX FAST FULL SCAN` → Index scan을 통해서 결과 집합을 가져오는 것으로 선택되었다.
+
 <br/>
 
 Oracle에서는 어떠한 table의 PK에 대해서, 자동으로 Unique index를 생성해준다.
