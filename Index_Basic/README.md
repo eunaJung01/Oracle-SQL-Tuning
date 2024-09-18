@@ -57,7 +57,7 @@ Plan hash value: 3279811250
 
 Oracle에서는 어떠한 table의 PK에 대해서, 자동으로 Unique index를 생성해준다.
 
-> [[참고] Oracle 공식 문서](https://docs.oracle.com/en/database/oracle/oracle-database/19/admin/managing-indexes.html#GUID-BF04684D-A857-4046-8749-0F57D3B19113)
+> [[참고] Oracle 공식 문서](https://docs.oracle.com/en/database/oracle/oracle-database/19/admin/managing-indexes.html#GUID-BF04684D-A857-4046-8749-0F57D3B19113)  
 > Oracle Database enforces a `UNIQUE` key or `PRIMARY KEY` integrity constraint on a table  
 > by creating a unique index on the unique key or primary key.  
 > This index is automatically created by the database when the constraint is enabled.
