@@ -1,6 +1,6 @@
 # Index Basic
 
-## Query 1: 회원 전체 조회
+## Query 1: 전체 회원 조회
 
 ```sql
 SELECT *
@@ -34,7 +34,7 @@ Plan hash value: 3441279308
 <br/>
 <br/>
 
-## Query 2-1: 회원 전체 조회 - Index Column
+## Query 2-1: 전체 회원 조회 - Index Column
 
 ```sql
 SELECT MEMBER_ID
@@ -87,7 +87,7 @@ Optimizer는 해당 index를 scan 하여 결과 집합을 가져오는 방향을
 <br/>
 <br/>
 
-## Query 2-2: 회원 전체 조회 - Index Column + NO_INDEX_FFS Hint
+## Query 2-2: 전체 회원 조회 - Index Column + NO_INDEX_FFS Hint
 
 ```sql
 SELECT /*+ NO_INDEX_FFS(MEMBER MEMBER_ID_IDX) */
@@ -122,7 +122,7 @@ Query 2-1에서의 실행 계획과 비교해보면, 읽어들인 row의 개수�
 <br/>
 <br/>
 
-## Query 3: 회원 전체 조회 - Index Column + ORDERY BY DESC
+## Query 3: 전체 회원 조회 - Index Column + ORDERY BY DESC
 
 ```sql
 SELECT MEMBER_ID
@@ -152,7 +152,7 @@ Plan hash value: 927876221
 <br/>
 <br/>
 
-## Query 4: 회원 전체 조회 - Index Column & Non-Index Column
+## Query 4: 전체 회원 조회 - Index Column & Non-Index Column
 
 ```sql
 SELECT MEMBER_ID,
