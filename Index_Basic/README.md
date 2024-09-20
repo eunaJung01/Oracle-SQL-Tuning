@@ -27,6 +27,11 @@ Plan hash value: 3441279308
 **즉, Sequential access & Multiblock I/O가 발생하였다.**
 
 <br/>
+
+[참고] `Plan hash value` : Numeric representation of the current SQL plan.  
+→ 각 실행 계획을 고유하게 식별하는 값이다.
+
+<br/>
 <br/>
 
 ## Query 2-1: 회원 전체 조회 - Index Column
