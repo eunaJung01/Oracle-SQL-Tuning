@@ -1,10 +1,17 @@
-# Install Oracle DB on an M1 Mac
+# Install & Connect Oracle DB on an M1 Mac
+
+### Contents
+
+1. [References](#References)
+2. [Docker Commands](#Docker-commands)
+3. [Connect to Oracle DB from DataGrip](#Connect-to-Oracle-DB-from-DataGrip)
+4. [+) CDB vs. PDB ?](#cdb-vs-pdb)
 
 <br/>
 
 ## References
 
-- https://www.youtube.com/watch?v=uxvoMhkKUPE
+- https://www.youtube.com/watch?v=uxvoMhkKUPE !!
 - https://github.com/oracle/docker-images
 - https://www.jetbrains.com/help/datagrip/oracle.html
 
@@ -18,7 +25,9 @@ Directory path : `~/.../docker-images/OracleDatabase/SingleInstance/dockerfiles`
 docker run -d --name oracle19 -e ORACLE_PWD=mypassword1 -p 1521:1521 oracle/database:19.3.0-ee
 ```
 
-<br/>
+<br>
+
+### Check Docker Status
 
 ```bash
 docker ps
@@ -38,8 +47,6 @@ docker ps
 - Host : `localhost`
 - Port : `1521`
 - Service : `ORCLCDB`
-
-
 - User : `SYS as SYSDBA`
 - Password : `mypassword1`
 
@@ -54,8 +61,6 @@ docker ps
 - Host : `localhost`
 - Port : `1521`
 - Service : `ORCLPDB1`
-
-
 - User : `SYS as SYSDBA`
 - Password : `mypassword1`
 
@@ -79,18 +84,12 @@ GRANT RESOURCE, CONNECT, DBA TO euna;
 - Host : `localhost`
 - Port : `1521`
 - Service : `ORCLPDB1`
-
-
 - User : `euna`
 - Password : `mypassword1`
 
 <p align="center"><img width="600" alt="oracle_pdb_euna_connection" src="https://github.com/user-attachments/assets/6e04efcd-5701-4495-a722-895692f3cad5">
 
 <br/>
-<br/>
-
----
-
 <br/>
 
 \\^0^/
@@ -100,7 +99,7 @@ GRANT RESOURCE, CONNECT, DBA TO euna;
 <br/>
 <br/>
 
-## +) CDB vs. PDB ?
+<h2 id="cdb-vs-pdb">+) CDB vs. PDB ?</h2>
 
 https://docs.oracle.com/en/database/oracle/oracle-database/21/cncpt/CDBs-and-PDBs.html
 
