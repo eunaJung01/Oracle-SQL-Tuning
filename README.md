@@ -19,3 +19,22 @@ Oracle Database Version : 19c
 - [Oracle 19c Functions](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Functions.html#GUID-D079EFD3-C683-441F-977E-2C9503089982)
 - [Oracle 19c Optimizer Hints](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Comments.html#GUID-D316D545-89E2-4D54-977F-FC97815CD62E)
 - [Oracle 19c Optimizer Access Paths](https://docs.oracle.com/en/database/oracle/oracle-database/19/tgsql/optimizer-access-paths.html)
+
+<br/>
+
+### \\^0^/
+
+```oracle
+ALTER SYSTEM FLUSH BUFFER_CACHE;
+
+ALTER SYSTEM FLUSH SHARED_POOL;
+```
+
+```oracle
+CREATE INDEX INDEX_NAME
+    ON TABLE_NAME (COLUMN_1, COLUMN_2, ..);
+
+ALTER INDEX INDEX_NAME REBUILD;
+
+DROP INDEX INDEX_NAME;
+```
