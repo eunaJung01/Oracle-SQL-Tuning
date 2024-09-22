@@ -1,16 +1,27 @@
-## Tables
+# ERD & DDL, Dummy Data Insertion
 
-- 회원 : member
-- 주문 : orders
-- 상품 : item
-- 주문 상품 : ordered_item
+### Contents
 
+- [ERD](#ERD)
+- [DDL](#DDL)
+- [DDL with NOT NULL Constraints](#DDL-with-NOT-NULL-constraints)
+- [PL/SQL for Dummy Data Insertion](#plsql-for-dummy-data-insertion)
+
+<br/>
 <br/>
 
 ## ERD
 
+- 회원 : `MEMBER`
+- 주문 : `ORDERS`
+- 상품 : `ITEM`
+- 주문 상품 : `ORDERED_ITEM`
+
+<br/>
+
 <p align="center"><img width="800" alt="ERD" src="https://github.com/user-attachments/assets/6da52c22-3d0e-4864-a5d6-e9f13970f0e6">
 
+<br/>
 <br/>
 <br/>
 
@@ -80,6 +91,76 @@ CREATE TABLE ordered_item
 );
 ```
 
+<br/>
+<br/>
+
+## DDL with NOT NULL Constraints
+
+```sql
+CREATE TABLE member
+(
+    member_id NUMBER
+        GENERATED ALWAYS AS IDENTITY
+            (START WITH 1 INCREMENT BY 1)
+        PRIMARY KEY,
+
+    name      VARCHAR2(50) NOT NULL,
+    city      VARCHAR2(50) NOT NULL,
+    street    VARCHAR2(50) NOT NULL,
+    zipcode   NUMBER(5)    NOT NULL
+);
+
+CREATE TABLE orders
+(
+    order_id   NUMBER
+        GENERATED ALWAYS AS IDENTITY
+            (START WITH 1 INCREMENT BY 1)
+        PRIMARY KEY,
+
+    member_id  NUMBER NOT NULL,
+    order_date DATE   NOT NULL,
+    status     VARCHAR2(50) NOT NULL,
+
+    CONSTRAINT order_fk
+        FOREIGN KEY (member_id)
+            REFERENCES member (member_id)
+);
+
+CREATE TABLE item
+(
+    item_id        NUMBER
+        GENERATED ALWAYS AS IDENTITY
+            (START WITH 1 INCREMENT BY 1)
+        PRIMARY KEY,
+
+    name           VARCHAR2(50) NOT NULL,
+    price          NUMBER(5)    NOT NULL,
+    stock_quantity NUMBER(5)    NOT NULL
+);
+
+CREATE TABLE ordered_item
+(
+    ordered_item_id NUMBER
+        GENERATED ALWAYS AS IDENTITY
+            (START WITH 1 INCREMENT BY 1)
+        PRIMARY KEY,
+
+    order_id        NUMBER NOT NULL,
+    item_id         NUMBER NOT NULL,
+    price           NUMBER(5) NOT NULL,
+    quantity        NUMBER(5) NOT NULL,
+
+    CONSTRAINT ordered_items_fk
+        FOREIGN KEY (order_id)
+            REFERENCES orders (order_id),
+
+    CONSTRAINT ordered_items_fk2
+        FOREIGN KEY (item_id)
+            REFERENCES item (item_id)
+);
+```
+
+<br/>
 <br/>
 
 ## PL/SQL for Dummy Data Insertion
