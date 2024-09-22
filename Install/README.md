@@ -8,13 +8,15 @@
 4. [+) CDB vs. PDB ?](#cdb-vs-pdb)
 
 <br/>
+<br/>
 
 ## References
 
-- https://www.youtube.com/watch?v=uxvoMhkKUPE !!
+- ⭐️ https://www.youtube.com/watch?v=uxvoMhkKUPE ⭐️
 - https://github.com/oracle/docker-images
 - https://www.jetbrains.com/help/datagrip/oracle.html
 
+<br/>
 <br/>
 
 ## Docker Commands
@@ -33,7 +35,7 @@ docker run -d --name oracle19 -e ORACLE_PWD=mypassword1 -p 1521:1521 oracle/data
 docker ps
 ```
 
-<p align="center"><img width="800" alt="docker_ps" src="https://github.com/user-attachments/assets/084cc802-03c3-4079-a3d3-2252207ca10f">
+<p align="center"><img width="1200" alt="docker_ps" src="https://github.com/user-attachments/assets/084cc802-03c3-4079-a3d3-2252207ca10f">
 
 <br/>
 <br/>
@@ -50,7 +52,7 @@ docker ps
 - User : `SYS as SYSDBA`
 - Password : `mypassword1`
 
-<p align="center"><img width="600" alt="oracle_cdb_connection" src="https://github.com/user-attachments/assets/57a07cce-1fdf-46d1-8812-bd240dc3adee">
+<p align="center"><img width="800" alt="oracle_cdb_connection" src="https://github.com/user-attachments/assets/57a07cce-1fdf-46d1-8812-bd240dc3adee">
 
 <br/>
 <br/>
@@ -64,7 +66,7 @@ docker ps
 - User : `SYS as SYSDBA`
 - Password : `mypassword1`
 
-<p align="center"><img width="600" alt="oracle_pdb_connection" src="https://github.com/user-attachments/assets/f85244c4-3c24-4935-bc08-7873423143b7">
+<p align="center"><img width="800" alt="oracle_pdb_connection" src="https://github.com/user-attachments/assets/f85244c4-3c24-4935-bc08-7873423143b7">
 
 <br/>
 <br/>
@@ -87,13 +89,13 @@ GRANT RESOURCE, CONNECT, DBA TO euna;
 - User : `euna`
 - Password : `mypassword1`
 
-<p align="center"><img width="600" alt="oracle_pdb_euna_connection" src="https://github.com/user-attachments/assets/6e04efcd-5701-4495-a722-895692f3cad5">
+<p align="center"><img width="800" alt="oracle_pdb_euna_connection" src="https://github.com/user-attachments/assets/6e04efcd-5701-4495-a722-895692f3cad5">
 
 <br/>
 <br/>
 
 \\^0^/
-<p align="center"><img width="300" alt="\^0^/" src="https://github.com/user-attachments/assets/2c75e9bf-81bd-4195-98dc-112ca6a79032">
+<p align="center"><img width="350" alt="\^0^/" src="https://github.com/user-attachments/assets/2c75e9bf-81bd-4195-98dc-112ca6a79032">
 
 <br/>
 <br/>
@@ -103,6 +105,11 @@ GRANT RESOURCE, CONNECT, DBA TO euna;
 
 https://docs.oracle.com/en/database/oracle/oracle-database/21/cncpt/CDBs-and-PDBs.html
 
+<br/>
+
+<p align="center"><img width="700" alt="cdb_pdb" src="https://github.com/user-attachments/assets/c954b518-e770-4d00-9dbc-ede28b7a7af9">
+
+<br/>
 <br/>
 
 ### Container Database, CDB
