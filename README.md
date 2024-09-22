@@ -8,6 +8,7 @@ Oracle Database Version : 19c
 
 ## Contents
 
+- [Install & Connect Oracle DB on an M1 Mac](./Install/README.md)
 - [ERD & DDL](./ERD/README.md)
 - [Index Basic](Index_Basic/README.md)
 
