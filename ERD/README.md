@@ -167,9 +167,13 @@ CREATE TABLE ordered_item
 
 ```SQLPL
 BEGIN
-    FOR i IN 1..100000
+    FOR i IN 1..1000000
         LOOP
-            INSERT INTO member (name, city, street, zipcode)
+            INSERT INTO member (name,
+                                city,
+                                street,
+                                zipcode)
+
             VALUES ('Member ' || i,
                     'City ' || MOD(i, 100),
                     'Street ' || MOD(i, 1000),
@@ -177,30 +181,39 @@ BEGIN
         END LOOP;
     COMMIT;
 
-    FOR i IN 1..100000
+    FOR i IN 1..1000000
         LOOP
-            INSERT INTO orders (member_id, order_date, status)
-            VALUES (MOD(i, 100000) + 1,
-                    SYSDATE - MOD(i, 365),
-                    CASE MOD(i, 3)
-                        WHEN 0 THEN 'PENDING'
-                        WHEN 1 THEN 'SHIPPED'
-                        ELSE 'DELIVERED'
-                        END);
+            INSERT INTO orders (member_id,
+                                order_date,
+                                status)
+
+            VALUES (MOD(i, 1000000) + 1,
+                    DATE '2024-01-01' - MOD(i, 365),
+                    DECODE(MOD(i, 3),
+                           0, 'PENDING',
+                           1, 'SHIPPED',
+                           'DELIVERED'));
         END LOOP;
 
     FOR i IN 1..1000
         LOOP
-            INSERT INTO item (name, price, stock_quantity)
+            INSERT INTO item (name,
+                              price,
+                              stock_quantity)
+
             VALUES ('Item ' || i,
                     MOD(i, 90) + 10,
                     MOD(i, 1000) + 1);
         END LOOP;
 
-    FOR i IN 1..100000
+    FOR i IN 1..1000000
         LOOP
-            INSERT INTO ordered_item (order_id, item_id, price, quantity)
-            VALUES (MOD(i, 100000) + 1,
+            INSERT INTO ordered_item (order_id,
+                                      item_id,
+                                      price,
+                                      quantity)
+
+            VALUES (MOD(i, 1000000) + 1,
                     MOD(i, 1000) + 1,
                     MOD(i, 90) + 10,
                     MOD(i, 10) + 1);
@@ -208,5 +221,4 @@ BEGIN
 
     COMMIT;
 END;
-/
 ```
