@@ -22,7 +22,7 @@ Oracle Database Version : 19c
 
 <br/>
 
-### \\^0^/
+### Frequently Used Queries
 
 ```oracle
 ALTER SYSTEM FLUSH BUFFER_CACHE;
