@@ -8,7 +8,9 @@
 - [Query 3: 전체 회원 조회 - Index Column + ORDER BY DESC](#query-3-전체-회원-조회---index-column--order-by-desc)
 - [Query 4: 전체 회원 조회 - Index Column & Non-Index Column](#query-4-전체-회원-조회---index-column--non-index-column)
 - [Query 5-1: 주문 상품 조회 - USE_CONCAT Hint vs. UNION ALL](#query-5-1-주문-상품-조회---use_concat-hint-vs-union-all)
+    - [Conclusion](#query_5_1_conclusion)
 - [Query 5-2: 주문 상품 조회 - USE_CONCAT Hint vs. UNION ALL vs. INDEX_COMBINE Hint](#query-5-2-주문-상품-조회---use_concat-hint-vs-union-all-vs-index_combine-hint)
+    - [Conclusion](#query_5_2_conclusion)
 
 <br/>
 <br/>
@@ -455,9 +457,7 @@ Predicate Information (identified by operation id):
 "   3 - access(""QUANTITY""=2)"
 ```
 
-이전 실행 계획과는 다르게, 나의 의도대로 Index 만을 타서 결과 집합을 가져오는 것을 볼 수 있다.
-
-이에 cost도 가장 낮게 나온다.
+이전 실행 계획과는 다르게, 나의 의도대로 Index 만을 타서 결과 집합을 가져오는 것을 볼 수 있다. 이에 cost도 가장 낮게 나온다.
 
 | Operation         | Cost |
 |-------------------|------|
@@ -467,7 +467,7 @@ Predicate Information (identified by operation id):
 
 <br/>
 
-### Conclusion
+<h3 id="query_5_1_conclusion">Conclusion</h3>
 
 `USE_CONCAT` hint는 query를 단순히 `UNION ALL` 방식으로 변환하는 것이 아니다.
 
@@ -761,20 +761,18 @@ Predicate Information (identified by operation id):
 "       filter(""QUANTITY""=2)"
 ```
 
-| Operation         | Cost |
-|-------------------|------|
-| Table full scan   | 1920 |
-| `USE_CONCAT` hint | 2213 |
-| `UNION ALL`       | 620  |
-| `INDEX_COMBINE`   | 1650 |
-
-<br/>
-
 연산량이 많아져, 오히려 성능이 떨어진다.
 
+| Operation            | Cost |
+|----------------------|------|
+| Table full scan      | 1920 |
+| `USE_CONCAT` hint    | 2213 |
+| `UNION ALL`          | 620  |
+| `INDEX_COMBINE` hint | 1650 |
+
 <br/>
 
-### Conclusion
+<h3 id="query_5_2_conclusion">Conclusion</h3>
 
 1. Index에 조회하는 column이 전부 포함되어 있는 경우, Index만을 타도록 강제하자.    
    (`USE_CONCAT` hint 보다는 `UNION ALL`로 풀어쓰기 → 경우에 따라 다를 수도 있을 것 같아서.. 직접 실행 계획을 출력해보고 선택하자)
