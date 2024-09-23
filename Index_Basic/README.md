@@ -5,7 +5,7 @@
 - [Query 1: 전체 회원 조회](#query-1-전체-회원-조회)
 - [Query 2-1: 전체 회원 조회 - Index Column](#query-2-1-전체-회원-조회---index-column)
 - [Query 2-2: 전체 회원 조회 - Index Column + NO_INDEX_FFS Hint](#query-2-2-전체-회원-조회---index-column--no_index_ffs-hint)
-- [Query 3: 전체 회원 조회 - Index Column + ORDERY BY DESC](#query-3-전체-회원-조회---index-column--order-by-desc)
+- [Query 3: 전체 회원 조회 - Index Column + ORDER BY DESC](#query-3-전체-회원-조회---index-column--order-by-desc)
 - [Query 4: 전체 회원 조회 - Index Column & Non-Index Column](#query-4-전체-회원-조회---index-column--non-index-column)
 - [Query 5-1: 주문 상품 조회 - USE_CONCAT Hint vs. UNION ALL](#query-5-1-주문-상품-조회---use_concat-hint-vs-union-all)
 - [Query 5-2: 주문 상품 조회 - USE_CONCAT Hint vs. UNION ALL vs. INDEX_COMBINE Hint](#query-5-2-주문-상품-조회---use_concat-hint-vs-union-all-vs-index_combine-hint)
@@ -135,7 +135,7 @@ Query 2-1에서의 실행 계획과 비교해보면, 읽어들인 row의 개수�
 <br/>
 <br/>
 
-## Query 3: 전체 회원 조회 - Index Column + ORDERY BY DESC
+## Query 3: 전체 회원 조회 - Index Column + ORDER BY DESC
 
 ```sql
 SELECT MEMBER_ID
