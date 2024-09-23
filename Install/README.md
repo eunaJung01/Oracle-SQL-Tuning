@@ -2,10 +2,10 @@
 
 ### Contents
 
-1. [References](#References)
-2. [Docker Commands](#Docker-commands)
-3. [Connect to Oracle DB from DataGrip](#Connect-to-Oracle-DB-from-DataGrip)
-4. [+) CDB vs. PDB ?](#cdb-vs-pdb)
+- [References](#References)
+- [Docker Commands](#Docker-commands)
+- [Connect to Oracle DB from DataGrip](#Connect-to-Oracle-DB-from-DataGrip)
+- [+) CDB vs. PDB ?](#cdb-vs-pdb)
 
 <br/>
 <br/>
