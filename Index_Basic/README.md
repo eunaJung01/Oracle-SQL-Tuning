@@ -11,6 +11,7 @@
     - [Conclusion](#query_5_1_conclusion)
 - [Query 5-2: 주문 상품 조회 - USE_CONCAT Hint vs. UNION ALL vs. INDEX_COMBINE Hint](#query-5-2-주문-상품-조회---use_concat-hint-vs-union-all-vs-index_combine-hint)
     - [Conclusion](#query_5_2_conclusion)
+- [Query 6: 주문 조회 - IN-List Iterator](#query-6-주문-조회---in-list-iterator)
 
 <br/>
 <br/>
@@ -305,7 +306,7 @@ WHERE (PRICE = 40
   FROM ORDERED_ITEM
   WHERE QUANTITY = 2;
   ```
-  **IN-List Iterator 방식**(IN-List 개수만큼 Index range scan을 반복)을 유도하게 된다.
+  **IN-List Iterator 방식**(IN 조건 만큼 Index range scan을 반복)을 유도하게 된다.
 
 <br/>
 
@@ -778,3 +779,92 @@ Predicate Information (identified by operation id):
    (`USE_CONCAT` hint 보다는 `UNION ALL`로 풀어쓰기 → 경우에 따라 다를 수도 있을 것 같아서.. 직접 실행 계획을 출력해보고 선택하자)
 
 2. Table access가 불가피한 경우, `INDEX_COMBINE` hint를 고려해보자.
+
+<br/>
+<br/>
+
+## Query 6: 주문 조회 - IN-List Iterator
+
+```sql
+SELECT *
+FROM ORDERS
+WHERE STATUS IN ('DELIVERED',
+                 'SHIPPED');
+```
+
+<br/>
+
+### Execution Plan
+
+```
+Plan hash value: 1275100350
+ 
+----------------------------------------------------------------------------
+| Id  | Operation         | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |        |  1297K|    76M|  2469   (1)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| ORDERS |  1297K|    76M|  2469   (1)| 00:00:01 |
+----------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+"   1 - filter(""STATUS""='DELIVERED' OR ""STATUS""='SHIPPED')"
+```
+
+Table full access가 발생하면서, **filter 조건**으로 `""STATUS""='DELIVERED' OR ""STATUS""='SHIPPED'`가 들어갔다.
+
+<br/>
+
+### IN-List Iterator
+
+STATUS column을 선두 column으로 가지는 Index를 생성해보자.
+
+```sql
+CREATE INDEX STATUS_IDX
+    ON ORDERS (STATUS);
+```
+
+<br/>
+
+#### Execution Plan
+
+```
+Plan hash value: 2893997418
+ 
+---------------------------------------------------------------------------------------------------
+| Id  | Operation                            | Name       | Rows  | Bytes | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                     |            |  1297K|    76M|   133   (0)| 00:00:01 |
+|   1 |  INLIST ITERATOR                     |            |       |       |            |          |
+|   2 |   TABLE ACCESS BY INDEX ROWID BATCHED| ORDERS     |  1297K|    76M|   133   (0)| 00:00:01 |
+|*  3 |    INDEX RANGE SCAN                  | STATUS_IDX |  7781 |       |    26   (0)| 00:00:01 |
+---------------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+"   3 - access(""STATUS""='DELIVERED' OR ""STATUS""='SHIPPED')"
+```
+
+<br/>
+
+`INLIST ITERATOR` : 아래 과정을 **IN-List 개수만큼 반복한다.**
+
+1. Index를 range scan 한다. IN 조건(e.g., ""STATUS""='DELIVERED')이 **Index access 조건**이 되어, Index scan 시작점을 찾을 수 있게 된다.
+2. Table access를 진행한다.
+
+<p align="center"><img width="600" alt="in_list_iterator" src="https://github.com/user-attachments/assets/d6521916-13d5-44a0-bc1c-26cf23e8b0f7">
+
+<br/>
+
+아래 query도 동일하게 IN-List Iterator 방식으로 처리된다.
+
+```sql
+SELECT *
+FROM ORDERS
+WHERE (STATUS = 'SHIPPED'
+    OR STATUS = 'DELIVERED');
+```
+
+`IN` 조건은 `OR` 조건을 표현하는 다른 방식일 뿐이다.
