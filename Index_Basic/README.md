@@ -851,10 +851,12 @@ Predicate Information (identified by operation id):
 
 `INLIST ITERATOR` : 아래 과정을 **IN-List 개수만큼 반복한다.**
 
-1. Index를 range scan 한다. IN 조건(e.g., ""STATUS""='DELIVERED')이 **Index access 조건**이 되어, Index scan 시작점을 찾을 수 있게 된다.
+1. Index를 range scan 한다. `IN` 조건(e.g., ""STATUS""='DELIVERED')이 **Index access 조건**이 되어, Index scan 시작점을 찾을 수 있게 된다.
 2. Table access를 진행한다.
 
 <p align="center"><img width="600" alt="in_list_iterator" src="https://github.com/user-attachments/assets/d6521916-13d5-44a0-bc1c-26cf23e8b0f7">
+
+> Index가 `IN` 조건에 있는 column을 선두 column으로 가질 때에만 IN-List Iterator 방식으로 처리할 수 있다.
 
 <br/>
 
