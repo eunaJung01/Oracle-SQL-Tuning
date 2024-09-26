@@ -872,3 +872,21 @@ WHERE (STATUS = 'SHIPPED'
 ```
 
 `IN` 조건은 `OR` 조건을 표현하는 다른 방식일 뿐이다.
+
+<br/>
+
+> [[참고] Inlist Iterator를 사용하지 말아야 할 때](https://scidb.tistory.com/entry/Inlist-Iterator%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80-%EB%A7%90%EC%95%84%EC%95%BC-%ED%95%A0-%EB%95%8C)
+>
+> `IN` 조건 vs. Range 조건
+> - **Access 하고자 하는 데이터가 연속적으로 존재할 때,** `IN` 조건 보다는 Range 조건(`BETWEEN` 또는 `LIKE` 조건)을 사용하는 것이 유리하다.  
+    IN-List Iterator 방식은 Index range scan을 `IN` 조건마다 반복하기 때문에, 불필요한 Index inner block lookup이 반복되어 성능상 불리하기 때문이다.
+>
+>
+> - Access 하고자 하는 데이터가 연속적이지 않을 때에는 `IN` 조건을 사용해야 한다.  
+    그러나 `BETWEEN`을 사용하는 방법도 있는데, 연속적인 데이터들 중 단 몇 개만 빠지는 경우에만 사용해야 성능적으로 유리할 것으로 보인다.
+> ```sql
+> SELECT *
+> FROM T
+> WHERE ID BETWEEN 1 AND 10
+>   AND ID != 5;
+> ```
