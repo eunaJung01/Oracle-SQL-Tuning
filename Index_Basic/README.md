@@ -856,10 +856,9 @@ Predicate Information (identified by operation id):
 
 <p align="center"><img width="700" alt="in_list_iterator" src="https://github.com/user-attachments/assets/d6521916-13d5-44a0-bc1c-26cf23e8b0f7">
 
-> Index가 `IN` 조건에 있는 column을 선두 column으로 가질 때에만 IN-List Iterator 방식으로 처리할 수 있다.  
-> 만약 아니라면, Index range scan을 진행할 수 없기 때문이다.
+Index가 `IN` 조건에 있는 column을 선두 column으로 가질 때에만 IN-List Iterator 방식으로 처리할 수 있다.  
+만약 아니라면, Index range scan을 진행할 수 없기 때문이다.
 
-<br/>
 <br/>
 
 아래 query도 동일하게 IN-List Iterator 방식으로 처리된다.
